@@ -1,3 +1,5 @@
-import subprocess
+#import subprocess
 
-subprocess.run(['python', 'HuggingFace/main.py'])
+#subprocess.run(['python', 'HuggingFace/main.py'])
+
+print('lồn')
