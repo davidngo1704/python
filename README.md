@@ -7,6 +7,15 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 
 uvicorn app.main:app --reload
+------------------------------------------
+htop
+
+free -h
+
+du -sh *
+
+df -h
+
 -----------------------------------------
 mkdir -p /root/python_daint/data
 

@@ -1,5 +1,7 @@
-#cd /var/lib/ApiGateway/source_code/common && source venv/bin/activate
+cd /var/lib/ApiGateway/source_code/python
 
-cd /var/lib/ApiGateway/source_code/common 
+source venv/bin/activate
 
-docker compose up -d
+pwd
+
+ls

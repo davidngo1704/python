@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /var/lib/ApiGateway/source_code/common
+cd /var/lib/ApiGateway/source_code/python
 
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
