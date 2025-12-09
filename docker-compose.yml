@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+    container_name: fastdata-api
+    ports:
+      - "8000:8000"
+
+    environment:
+      DATABASE_URL: "sqlite:////app/data/data.db"
+
+    volumes:
+      - /root/python_daint/data/data.db:/app/data/data.db
+
+    restart: unless-stopped
