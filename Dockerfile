@@ -7,12 +7,13 @@ RUN apt-get update && apt-get install -y \
     g++ \
     cmake \
     git \
+    pkg-config \
     libopenblas-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Optional: Improve performance using OpenBLAS
+# Enable BLAS acceleration for llama-cpp-python
 ENV CMAKE_ARGS="-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS"
 ENV FORCE_CMAKE=1
 
