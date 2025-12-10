@@ -9,7 +9,9 @@ MODEL_DIR = "models"
 def ensure_local_model():
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
+
     models_path = os.path.join(current_dir, MODEL_DIR)
+    
     os.makedirs(models_path, exist_ok=True)
 
     local_model_path = os.path.join(models_path, MODEL_FILE)
