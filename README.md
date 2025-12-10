@@ -29,6 +29,8 @@ alembic init migrations
 -----------------------------------------
 Quy trình migration sau khi thay đổi model
 
+alembic init migrations
+
 1. Đảm bảo DB URL:
    - Biến môi trường: DATABASE_URL (nếu không có thì Alembic dùng sqlite:///./data.db).
 2. Tạo migration mới sau khi đổi model:
