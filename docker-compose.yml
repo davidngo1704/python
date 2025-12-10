@@ -11,5 +11,6 @@ services:
 
     volumes:
       - /root/python_daint/data/data.db:/app/data/data.db
+      - /root/python_daint/huggingfacemodels:/app/app/dainthuggingface/models
 
     restart: unless-stopped

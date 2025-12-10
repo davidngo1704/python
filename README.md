@@ -25,6 +25,10 @@ touch /root/python_daint/data/data.db
 
 chmod 666 /root/python_daint/data/data.db
 
+mkdir -p /root/python_daint/huggingfacemodels
+
+chmod 777 /root/python_daint/huggingfacemodels
+
 alembic init migrations
 -----------------------------------------
 Quy trình migration sau khi thay đổi model
