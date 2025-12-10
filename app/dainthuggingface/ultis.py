@@ -1,2 +1,2 @@
 def test():
-    print('dai')
+    return "test nhé"

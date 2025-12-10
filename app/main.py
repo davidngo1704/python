@@ -2,11 +2,12 @@ from fastapi import FastAPI
 from app.db.base import Base
 from app.db.session import engine
 
-from app.routers import notification
+from app.routers import notification, common
 
 
 app = FastAPI(title="Thành Đại")
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(notification.router, prefix="/notification", tags=["Notification"])
+app.include_router(notification.router, prefix="/notification", tags=["notification"])
+app.include_router(common.router, prefix="/common", tags=["common"])
