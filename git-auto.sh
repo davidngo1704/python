@@ -21,6 +21,8 @@ git commit -m "$COMMIT_MSG"
 # Lấy branch hiện tại
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
+git pull
+
 # Push
 git push origin "$CURRENT_BRANCH"
 
