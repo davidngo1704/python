@@ -6,3 +6,5 @@ python-dotenv
 alembic
 huggingface_hub
 llama-cpp-python
+chromadb
+sentence-transformers
