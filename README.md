@@ -16,6 +16,14 @@ du -sh *
 
 df -h
 
+pip install -r requirements.txt
+
+
+rm -rf venv
+python3 -m venv --upgrade-deps venv
+source venv/bin/activate
+python -m pip install -r requirements.txt
+
 -----------------------------------------
 mkdir -p /root/python_daint/data
 

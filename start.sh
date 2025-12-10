@@ -1,16 +1,36 @@
-if [ ! -d "/root/python_daint/data" ]; then
-    mkdir -p /root/python_daint/data
-    chmod 777 /root/python_daint/data
+#!/bin/bash
+
+SESSION_NAME="fastapi"
+APP_PATH="app.main:app"
+HOST="0.0.0.0"
+PORT="8000"
+VENV_PATH="venv/bin/activate"
+
+cd /var/lib/ApiGateway/source_code/python
+
+git pull
+
+echo "Killing old Uvicorn processes..."
+pkill -f "uvicorn" 2>/dev/null
+sleep 1
+
+tmux has-session -t $SESSION_NAME 2>/dev/null
+
+if [ $? != 0 ]; then
+    echo "Starting new tmux session: $SESSION_NAME"
+    tmux new-session -d -s $SESSION_NAME
+else
+    echo "Using existing session: $SESSION_NAME"
+    # Clear màn hình trong session trước khi chạy lệnh mới
+    tmux send-keys -t $SESSION_NAME C-c
+    tmux send-keys -t $SESSION_NAME "clear" C-m
 fi
 
-# Create file /root/python_daint/data/data.db if not exists
-if [ ! -f "/root/python_daint/data/data.db" ]; then
-    touch /root/python_daint/data/data.db
-    chmod 666 /root/python_daint/data/data.db
-fi
+# Activate venv
+tmux send-keys -t $SESSION_NAME "source $VENV_PATH" C-m
 
-# Create folder /root/python_daint/huggingfacemodels if not exists
-if [ ! -d "/root/python_daint/huggingfacemodels" ]; then
-    mkdir -p /root/python_daint/huggingfacemodels
-    chmod 777 /root/python_daint/huggingfacemodels
-fi
+# Chạy Uvicorn
+tmux send-keys -t $SESSION_NAME "uvicorn $APP_PATH --host $HOST --port $PORT --reload" C-m
+
+echo "FastAPI restarted in tmux session: $SESSION_NAME"
+echo "Attach with: tmux attach -t $SESSION_NAME"
