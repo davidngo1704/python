@@ -4,24 +4,27 @@
 
 from app.dainthuggingface.ultis import call_llm_function
 
-functions = [
+tools = [
     {
-        "name": "get_weather",
-        "description": "Lấy thông tin thời tiết tại một địa điểm.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "location": {
-                    "type": "string",
-                    "description": "Tên thành phố hoặc địa điểm."
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Lấy thông tin thời tiết tại một địa điểm.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "Tên thành phố hoặc địa điểm."
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": ["C", "F"],
+                        "description": "Đơn vị nhiệt độ."
+                    }
                 },
-                "unit": {
-                    "type": "string",
-                    "enum": ["C", "F"],
-                    "description": "Đơn vị nhiệt độ."
-                }
-            },
-            "required": ["location"]
+                "required": ["location"]
+            }
         }
     }
 ]
@@ -30,7 +33,8 @@ functions = [
 result = call_llm_function(
     system_prompt="You are a helpful assistant.",
     user_input="Thời tiết ở Hà Nội thế nào?",
-    functions=functions
+    functions=tools  # truyền tools vào
 )
+
 
 print("Final LLM Output:", result)

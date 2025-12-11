@@ -68,9 +68,6 @@ def get_weather(location, unit="C"):
         "condition": "Sunny"
     }
 
-def test():
-    return "This is a test function."
-
 def call_llm_function(system_prompt, user_input, functions):
     llm = load_llm_function_calling(ensure_local_model())
 
@@ -79,8 +76,8 @@ def call_llm_function(system_prompt, user_input, functions):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_input},
         ],
-        functions=functions,
-        function_call="auto",
+        tools=functions,
+        tool_choice="auto",
         max_tokens=300
     )
 
