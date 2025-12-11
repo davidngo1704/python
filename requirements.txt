@@ -9,3 +9,5 @@ llama-cpp-python
 chromadb
 sentence-transformers
 sentencepiece
+transformers
+sacremoses

@@ -3,13 +3,8 @@ import os
 
 from huggingface_hub import snapshot_download
 
-
-model_name = "vinai/vinai-translate-en2vi-v2"
-
-local_dir = "./models/vinai-translate-en2vi-v2"
-
 snapshot_download(
-    repo_id="vinai/vinai-translate-en2vi-v2",
-    local_dir=local_dir,
+    repo_id="Helsinki-NLP/opus-mt-en-vi",
+    local_dir="./models/opus-mt-en-vi",
     local_dir_use_symlinks=False
 )

@@ -1,15 +1,18 @@
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-local_dir = "./models/vinai-translate-en2vi-v2"
+model_id = "Helsinki-NLP/opus-mt-en-vi"
 
-tokenizer = AutoTokenizer.from_pretrained(local_dir, use_fast=False)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id)
 
-model = AutoModelForSeq2SeqLM.from_pretrained(local_dir)
-
-text = "Hello, how are you?"
+text = "tokenizer"
 
 inputs = tokenizer(text, return_tensors="pt")
 
-output = model.generate(**inputs)
+outputs = model.generate(
+    **inputs,
+    max_length=256
+)
 
-print(tokenizer.decode(output[0], skip_special_tokens=True))
+result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(result)
