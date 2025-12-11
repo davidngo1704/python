@@ -10,6 +10,8 @@ cd /var/lib/ApiGateway/source_code/python
 
 git pull
 
+alembic upgrade head
+
 echo "Killing old Uvicorn processes..."
 pkill -f "uvicorn" 2>/dev/null
 sleep 1
