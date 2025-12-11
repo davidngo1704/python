@@ -1,9 +1,16 @@
 import os
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
+import json
+import multiprocessing
+threads = multiprocessing.cpu_count()
 
-MODEL_REPO = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
-MODEL_FILE = "qwen2.5-1.5b-instruct-q4_k_m.gguf"
+# MODEL_REPO = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+# MODEL_FILE = "qwen2.5-1.5b-instruct-q4_k_m.gguf"
+
+MODEL_REPO = "bartowski/Qwen2.5-7B-Instruct-GGUF"
+MODEL_FILE = "Qwen2.5-7B-Instruct-Q4_K_M.gguf"
+
 MODEL_DIR = "models"
 
 def ensure_local_model():
@@ -28,17 +35,74 @@ def ensure_local_model():
 
     return downloaded_path
 
+def load_llm_function_calling(model_path):
+
+    return Llama(
+        model_path=model_path,
+        n_ctx=8192,                # Hợp lý cho RAM 32GB, ít lỗi
+        n_threads=threads,              # i5-10400 có 12 threads
+        n_gpu_layers=16,           # GTX 1050 Ti chỉ chịu tối đa ~16 layers
+        chat_format="chatml-function-calling",
+        use_mmap=True,             # giảm RAM
+        use_mlock=False,           # Windows không nên bật mlock
+        verbose=False,
+
+    )
 
 def load_llm(model_path):
 
     return Llama(
         model_path=model_path,
-        n_ctx=4096,
-        n_threads=8,
+        n_ctx=32768,
+        n_threads=threads,
         n_gpu_layers=0,
         chat_format="chatml",
         verbose=False,
     )
+
+def get_weather(location, unit="C"):
+    return {
+        "location": location,
+        "temperature": 28,
+        "unit": unit,
+        "condition": "Sunny"
+    }
+
+def test():
+    return "This is a test function."
+
+def call_llm_function(system_prompt, user_input, functions):
+    llm = load_llm_function_calling(ensure_local_model())
+
+    response = llm.create_chat_completion(
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_input},
+        ],
+        functions=functions,
+        function_call="auto",
+        max_tokens=300
+    )
+
+    message = response["choices"][0]["message"]
+
+    # Trường hợp LLM muốn gọi function
+    if "tool_calls" in message:
+        for call in message["tool_calls"]:
+            fn_name = call["function"]["name"]
+            raw_args = call["function"]["arguments"]
+            args = json.loads(raw_args) if isinstance(raw_args, str) else raw_args
+
+            if fn_name == "get_weather":
+                return get_weather(**args)
+
+        return {"error": "No matching tool."}
+
+
+    # Không phải function call => chỉ text
+    return message["content"]
+
+
 
 
 def chat(system_promt, input_text):
