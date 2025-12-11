@@ -44,8 +44,7 @@ if __name__ == "__main__":
     tokenizer, model = load_model()
 
     examples = [
-        "Hôm nay trời rất đẹp và tôi muốn đi dạo công viên.",
-        "bú buồi là gì?",
+        "hệ điều hành linux là gì?",
     ]
 
     for ex in examples:
