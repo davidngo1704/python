@@ -11,3 +11,4 @@ sentence-transformers
 sentencepiece
 transformers
 sacremoses
+googletrans==4.0.0-rc1
