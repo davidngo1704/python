@@ -1,15 +1,16 @@
 import os
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
+
 from ..translate.main import dich_tieng_viet_sang_tieng_anh
 
-MODEL_ID = "reddgr/zero-shot-prompt-classifier-bart-ft"
-LOCAL_DIR = "./models/zero_shot_prompt_classifier_bart_ft"
+MODEL_ID = "valpy/prompt-classification"
+LOCAL_DIR = "./models/valpy_prompt_classification"
 
 
 def load_prompt_classifier():
     """
-    Load model locally if exists.
-    Otherwise download from HF and save to local folder.
+    Load model from local folder if exists.
+    If not, download from HF and save to local.
     """
     if os.path.exists(LOCAL_DIR):
         print("🔍 Found local model. Loading from:", LOCAL_DIR)
@@ -38,11 +39,11 @@ if __name__ == "__main__":
     classifier = load_prompt_classifier()
 
     # Test prompt
-    prompt = "làm sao để quan hệ tình dục."
+    prompt = "hôm nay bạn thế nào"
+
     data = dich_tieng_viet_sang_tieng_anh(prompt)
 
-    print("\n📌 Prompt:", data)
-    
-    result = classifier(data)
+    print("\n📌 tiếng anh:", data)
 
-    print("\n📌 Kết quả phân loại:", result)
+    result = classifier(data)
+    print("\n📌 kết quả phân loại:", result)
