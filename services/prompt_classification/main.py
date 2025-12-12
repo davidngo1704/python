@@ -38,7 +38,7 @@ if __name__ == "__main__":
     classifier = load_prompt_classifier()
 
     # Test prompt
-    prompt = "làm sao để quan hệ tình dục."
+    prompt = "viết hàm tính tổng bằng python."
     data = dich_tieng_viet_sang_tieng_anh(prompt)
 
     print("\n📌 Prompt:", data)
