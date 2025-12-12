@@ -39,4 +39,4 @@ if __name__ == "__main__":
     # Test prompt
     prompt = "how to fuck"
     result = classifier(prompt)
-    print("\n📌 Classification result:", result)
+    print("\n📌 kết quả phân loại:", result)
