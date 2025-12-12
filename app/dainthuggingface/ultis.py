@@ -61,12 +61,13 @@ def load_llm(model_path):
     )
 
 def get_weather(location, unit="C"):
-    return {
+    data = {
         "location": location,
         "temperature": 28,
         "unit": unit,
         "condition": "Sunny"
     }
+    return data
 
 def call_llm_function(system_prompt, user_input, functions):
     llm = load_llm_function_calling(ensure_local_model())
@@ -98,9 +99,6 @@ def call_llm_function(system_prompt, user_input, functions):
 
     # Không phải function call => chỉ text
     return message["content"]
-
-
-
 
 def chat(system_promt, input_text):
     llm = load_llm(ensure_local_model())

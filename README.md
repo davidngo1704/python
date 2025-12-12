@@ -18,7 +18,6 @@ df -h
 
 pip install -r requirements.txt
 
-
 rm -rf venv
 python3 -m venv --upgrade-deps venv
 source venv/bin/activate

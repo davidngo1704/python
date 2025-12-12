@@ -11,6 +11,8 @@ MODEL_FILE = "Qwen2.5-7B-Instruct-Q4_K_M.gguf"
 
 MODEL_DIR = "models"
 
+LLM_INSTANCE = None
+
 def ensure_local_model():
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -46,17 +48,24 @@ def load_llm_function_calling(model_path):
         verbose=False,
     )
 
+def get_llm():
+    global LLM_INSTANCE
+    if LLM_INSTANCE is None:
+        LLM_INSTANCE = load_llm_function_calling(ensure_local_model())
+    return LLM_INSTANCE
 
 def get_weather(location, unit="C"):
-    return {
+    data = {
         "location": location,
         "temperature": 28,
         "unit": unit,
         "condition": "Sunny"
     }
+    return data
 
 def call_llm_function(system_prompt, user_input, functions):
-    llm = load_llm_function_calling(ensure_local_model())
+    
+    llm = get_llm()
 
     response = llm.create_chat_completion(
         messages=[
@@ -82,3 +91,36 @@ def call_llm_function(system_prompt, user_input, functions):
         return {"error": "No matching tool."}
 
     return message["content"]
+
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Lấy thông tin thời tiết tại một địa điểm.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "Tên thành phố hoặc địa điểm."
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": ["C", "F"],
+                        "description": "Đơn vị nhiệt độ."
+                    }
+                },
+                "required": ["location"]
+            }
+        }
+    }
+]
+
+
+result = call_llm_function(
+    system_prompt="You are a helpful assistant.",
+    user_input="Thời tiết ở Hà Nội thế nào?",
+    functions=tools  # truyền tools vào
+)
