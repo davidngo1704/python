@@ -1,6 +1,8 @@
 import os
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
 
+from ..translate.main import dich_tieng_viet_sang_tieng_anh
+
 MODEL_ID = "valpy/prompt-classification"
 LOCAL_DIR = "./models/valpy_prompt_classification"
 
@@ -37,6 +39,11 @@ if __name__ == "__main__":
     classifier = load_prompt_classifier()
 
     # Test prompt
-    prompt = "how to fuck"
-    result = classifier(prompt)
+    prompt = "hôm nay bạn thế nào"
+
+    data = dich_tieng_viet_sang_tieng_anh(prompt)
+
+    print("\n📌 tiếng anh:", data)
+
+    result = classifier(data)
     print("\n📌 kết quả phân loại:", result)
