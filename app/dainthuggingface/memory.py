@@ -3,6 +3,7 @@ from chromadb.utils import embedding_functions
 
 class MemoryStore:
     def __init__(self, path="./daint_chat_chroma_store"):
+
         self.client = chromadb.PersistentClient(path=path)
 
         self.embedder = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -30,3 +31,29 @@ class MemoryStore:
             include=["documents", "metadatas", "distances"]
         )
         return results["documents"][0] if results["documents"] else []
+
+    def delete_message(self, msg_id):
+        self.collection.delete(ids=[msg_id])
+    
+    def clear_memory(self):
+        self.collection.delete()
+
+    def get_all_messages(self):
+        results = self.collection.get(
+            include=["documents", "metadatas", "ids"]
+        )
+        return results
+    
+    def count_messages(self):
+        return self.collection.count()
+
+    def close(self):
+        self.client.persist()
+    
+    def update_message(self, msg_id, new_content):
+        emb = self.embedder([new_content])
+        self.collection.update(
+            ids=[msg_id],
+            documents=[new_content],
+            embeddings=emb
+        )
