@@ -2,7 +2,7 @@ import chromadb
 from chromadb.utils import embedding_functions
 
 class MemoryStore:
-    def __init__(self, path="./chroma_store"):
+    def __init__(self, path="./daint_chat_chroma_store"):
         self.client = chromadb.PersistentClient(path=path)
 
         self.embedder = embedding_functions.SentenceTransformerEmbeddingFunction(
