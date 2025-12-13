@@ -34,19 +34,22 @@ class ChatManager:
         self.memory.add_message(role, content)
 
     def build_messages(self, user_input):
-        similar_memories = self.memory.query(user_input, k=3)
 
-        print("daint similar_memories:", similar_memories)
+        similar_memories = self.memory.query(user_input, k=10)
 
         if similar_memories:
-            memory_block = "\n".join(f"- {m}" for m in similar_memories)
+
+            memory_block = "\n".join(
+                f"- {m}" for m in similar_memories
+            )
+
             system_prompt = (
-                "Bạn là trợ lý AI. "
-                "Dưới đây là những ký ức liên quan từ quá khứ:\n"
+                "Bạn là trợ lý AI.\n"
+                "Dưới đây là các đoạn hội thoại liên quan trước đây:\n"
                 f"{memory_block}"
             )
         else:
-            system_prompt = "Bạn là trợ lý AI. Không có ký ức nào liên quan."
+            system_prompt = "Bạn là trợ lý AI."
 
         return [
             {"role": "system", "content": system_prompt},
@@ -54,6 +57,9 @@ class ChatManager:
         ]
 
     def chat(self, user_input):
+
+        self.add_to_history("user", user_input)
+
         messages = self.build_messages(user_input)
 
         llm = get_llm()
