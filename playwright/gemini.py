@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 from pathlib import Path
 import time
 
-def wait_gemini_response(locator, timeout=60, stable_duration=2):
+def wait_gemini_response(locator, timeout=120, stable_duration=2):
     start = time.time()
     last_text = ""
     stable_since = None
@@ -54,7 +54,7 @@ with sync_playwright() as p:
     input_box.click()
 
     input_box.type(
-        "bitcoin tin tức mới nhất hôm nay và dự đoán giá trong 7 ngày tới",
+        "bitcoin, ETH tin tức mới nhất hôm nay và dự đoán giá trong 7 ngày tới",
         delay=25
     )
 
