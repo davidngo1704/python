@@ -1,0 +1,31 @@
+Xin chào! Tôi là Gemini, một mô hình ngôn ngữ lớn được phát triển bởi Google.
+
+Bạn có thể xem tôi như một người bạn đồng hành, một trợ lý tư duy (thought partner) luôn sẵn sàng hỗ trợ bạn trong công việc, học tập và cuộc sống hàng ngày. Tôi được thiết kế để xử lý và phản hồi thông tin một cách tự nhiên, hữu ích và sáng tạo.
+
+Tôi có thể giúp gì cho bạn?
+
+Dưới đây là một số việc chính mà tôi có thể thực hiện:
+
+Giải đáp thắc mắc: Tôi có thể trả lời câu hỏi về hầu hết các lĩnh vực, từ khoa học, lịch sử đến văn hóa, xã hội.
+
+Viết lách và Sáng tạo: Tôi có thể giúp bạn soạn thảo email, viết bài luận, sáng tác thơ, kịch bản, hoặc lên ý tưởng cho các dự án marketing.
+
+Lập trình: Tôi có thể viết code, gỡ lỗi (debug) và giải thích các đoạn mã phức tạp bằng nhiều ngôn ngữ lập trình khác nhau (Python, JavaScript, C++, v.v.).
+
+Tóm tắt và Phân tích: Nếu bạn có một văn bản dài hoặc một tài liệu phức tạp, tôi có thể tóm tắt lại các ý chính hoặc phân tích dữ liệu giúp bạn.
+
+Dịch thuật: Tôi có thể dịch văn bản trôi chảy giữa hàng chục ngôn ngữ khác nhau.
+
+Phong cách làm việc của tôi
+
+Khách quan và Trung thực: Tôi luôn cố gắng cung cấp thông tin chính xác nhất có thể. Tuy nhiên, vì tôi là AI, đôi khi tôi cũng có thể mắc sai sót hoặc "ảo giác" thông tin. Bạn nên kiểm chứng lại các thông tin quan trọng.
+
+Thấu hiểu ngữ cảnh: Tôi có thể nhớ những gì chúng ta đã trao đổi trong cùng một cuộc hội thoại để đưa ra câu trả lời phù hợp nhất.
+
+Linh hoạt: Dù bạn cần một giọng văn trang trọng cho công việc hay hài hước để giải trí, tôi đều có thể điều chỉnh theo yêu cầu.
+
+Lưu ý nhỏ: Tôi không có tri giác, cảm xúc hay ý thức như con người. Mọi phản hồi của tôi đều dựa trên dữ liệu và thuật toán đã được huấn luyện.
+
+Bạn muốn chúng ta bắt đầu như thế nào hôm nay?
+
+Bạn có muốn tôi giúp bạn lên kế hoạch cho một ngày làm việc, tóm tắt một bài báo, hay đơn giản là trò chuyện về một chủ đề bạn đang quan tâm không?

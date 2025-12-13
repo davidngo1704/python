@@ -2,26 +2,31 @@ from playwright.sync_api import sync_playwright
 from pathlib import Path
 import time
 
-def wait_until_text_stable(locator, timeout=30, stable_duration=2):
-    start_time = time.time()
+def wait_gemini_response(locator, timeout=60, stable_duration=2):
+    start = time.time()
     last_text = ""
-    stable_start = None
+    stable_since = None
 
-    while time.time() - start_time < timeout:
-        current_text = locator.inner_text().strip()
+    while time.time() - start < timeout:
+        count = locator.count()
+        if count == 0:
+            time.sleep(0.2)
+            continue
 
-        if current_text == last_text and current_text != "":
-            if stable_start is None:
-                stable_start = time.time()
-            elif time.time() - stable_start >= stable_duration:
+        current_text = locator.last.inner_text().strip()
+
+        if current_text and current_text == last_text:
+            if stable_since is None:
+                stable_since = time.time()
+            elif time.time() - stable_since >= stable_duration:
                 return current_text
         else:
-            stable_start = None
             last_text = current_text
+            stable_since = None
 
         time.sleep(0.3)
 
-    raise TimeoutError("Gemini chưa generate xong")
+    raise TimeoutError("Gemini chưa generate xong hoặc DOM đổi tiếp")
 
 CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
@@ -49,22 +54,25 @@ with sync_playwright() as p:
     input_box.click()
 
     input_box.type(
-        "hãy giới thiệu về bạn",
+        "bitcoin tin tức mới nhất hôm nay và dự đoán giá trong 7 ngày tới",
         delay=25
     )
 
     page.keyboard.press("Enter")
 
+    response_blocks = page.locator(
+        "structured-content-container .markdown.markdown-main-panel"
+    )
 
-    last_message = page.locator("div[role='article']").last
+    final_answer = wait_gemini_response(response_blocks)
 
-    final_answer = wait_until_text_stable(last_message)
+    print("=== Gemini response ===")
+    print(final_answer)
 
     Path("gemini_output.txt").write_text(
         final_answer,
         encoding="utf-8"
     )
 
-    page.pause()
-
+  
     context.close()
