@@ -41,9 +41,7 @@ class MemoryStore:
         self.collection.delete()
 
     def get_all_messages(self):
-        results = self.collection.get(
-            include=["documents", "metadatas", "ids"]
-        )
+        results = self.collection.get()
         return results
     
     def count_messages(self):
