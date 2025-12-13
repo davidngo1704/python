@@ -1,6 +1,6 @@
 import json
-from app.dainthuggingface.base_service import get_llm, get_weather
-from app.dainthuggingface.memory import MemoryStore
+from app.chat_service.base_service import get_llm, get_weather
+from app.chat_service.memory import MemoryStore
 
 class ChatManager:
     def __init__(self):

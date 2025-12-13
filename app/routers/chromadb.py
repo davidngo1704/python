@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.dainthuggingface.memory import MemoryStore
+from app.chat_service.memory import MemoryStore
 from app.schemas.common_schema import SingleChatModel
 
 router = APIRouter()

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.dainthuggingface.chat_manager import ChatManager
+from app.chat_service.chat_manager import ChatManager
 from app.schemas.common_schema import SingleChatModel
 
 
