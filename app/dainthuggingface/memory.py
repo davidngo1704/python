@@ -24,12 +24,14 @@ class MemoryStore:
         )
 
     def query(self, text, k=3):
+        print(f"Querying for: {text}")
         q_emb = self.embedder([text])
         results = self.collection.query(
             query_embeddings=q_emb,
             n_results=k,
             include=["documents", "metadatas", "distances"]
         )
+        print(f"Query results: {results}")
         return results["documents"][0] if results["documents"] else []
 
     def delete_message(self, msg_id):

@@ -5,7 +5,6 @@ from app.dainthuggingface.memory import MemoryStore
 class ChatManager:
     def __init__(self):
         self.memory = MemoryStore()
-        self.short_history = []
         self.tools = [
             {
                 "type": "function",
@@ -32,7 +31,6 @@ class ChatManager:
         ]
 
     def add_to_history(self, role, content):
-        self.short_history.append({"role": role, "content": content})
         self.memory.add_message(role, content)
 
     def build_messages(self, user_input):
@@ -52,7 +50,6 @@ class ChatManager:
 
         return [
             {"role": "system", "content": system_prompt},
-            *self.short_history,
             {"role": "user", "content": user_input},
         ]
 
