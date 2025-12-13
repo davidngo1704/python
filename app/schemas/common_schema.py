@@ -5,5 +5,8 @@ class ChatModel(BaseModel):
     systemPrompt: str
     message: str
 
+class SingleChatModel(BaseModel):
+    message: str
+
 class Config:
     from_attributes = True
