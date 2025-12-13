@@ -10,6 +10,3 @@ router = APIRouter()
 def list_notification(data: ChatModel):
     return chat(data.systemPrompt, data.message)
 
-@router.get("/")
-def get_notification():
-    return "lồn"

@@ -58,7 +58,6 @@ class ChatManager:
 
         llm = get_llm()
 
-        print("daint messages input:", messages)
 
         response = llm.create_chat_completion(
             messages=messages,
@@ -69,9 +68,6 @@ class ChatManager:
 
         msg = response["choices"][0]["message"]
 
-        print("daint LLM response:", msg)
-
-        # Handle function calling
         if "tool_calls" in msg:
             call = msg["tool_calls"][0]
             fn = call["function"]["name"]
@@ -82,16 +78,7 @@ class ChatManager:
                 self.add_to_history("assistant", str(result))
                 return result
 
-        # Normal reply
         assistant_reply = msg.get("content", "").strip()
-
-        # if assistant_reply == "":
-        #     print("Empty content, retrying with text-only mode…")
-        #     retry = llm.create_chat_completion(
-        #         messages=messages + [{"role": "system", "content": "Hãy trả lời bằng văn bản."}],
-        #         max_tokens=300
-        #     )
-        #     assistant_reply = retry["choices"][0]["message"]["content"]
 
         self.add_to_history("assistant", assistant_reply)
 
